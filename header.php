@@ -21,8 +21,9 @@
 <head>
 	<?php 
 		$css_dir = get_bloginfo('stylesheet_directory');
-	    global $template_url;
+	    global $template_url, $blog_url;
 	    $template_url = get_bloginfo('template_url');
+	    $blog_url = get_bloginfo('wpurl');
 	    /*
 	    if(is_single()) {
 			$tags = get_the_tags();
@@ -99,7 +100,7 @@
 var wp_privacy = parseInt(readCookie('wp_privacy'));
 var menu_active = false;
 var template_url = '<?php echo $template_url; ?>';
-var blogUrl ='<?php echo get_bloginfo('wpurl'); ?>';
+var blogUrl ='<?php echo $blog_url; ?>';
 var $d;
 
 var textSizeUnit = 'pt';
@@ -128,7 +129,7 @@ setInitialFontSize(textsize, textstyle);
 		<!--
 		<div style="display:none;"><h1 class="header"><a href="<?php bloginfo('url'); ?>/"><?php bloginfo('name'); ?></a></h1>
 		<div id="tagline"><?php bloginfo('description'); ?></div></div>-->
-		<a href="<?php bloginfo('url'); ?>/"><img style="margin-left:30px;" src="/wp-content/themes/blocks2/images/bloglogo.png" alt="logo" title="logo" /></a>
+		<a href="<?php bloginfo('url'); ?>/"><img style="margin-left:30px;" src="<?php echo $template_url;?>/images/bloglogo.png" alt="logo" title="logo" /></a>
 	</div>
 
 
@@ -160,9 +161,17 @@ setInitialFontSize(textsize, textstyle);
 			//wp_nav_menu(array('menu_id' => 'topmenu'));
 		?>
 		<div style="float:right;">
-			<a title="Subscribe to this blog..." class="feedlink" href="<?php echo $feed; ?>"><?php _e('<abbr title="Really Simple Syndication">RSS</abbr> feed', 'blocks2'); ?></a>
+			<a title="Subscribe to this blog..." class="feedlink" href="<?php echo $feed; ?>"><?php echo('<abbr title="Really Simple Syndication">RSS</abbr> feed'); ?></a>
 			<!--<a class="greedlink" href="http://forum.miranda.or.at/"><strong>Forum</strong></a>-->
 			<a class="greedlink" href="http://wiki.miranda.or.at/"><strong>Wiki</strong></a>
+			<?php if(!is_user_logged_in()) : ?>
+				<a id="cboxlogin" onclick="parent.jQuery.colorbox({width:'380px',transition:'none',opacity:1.0,href:'/wp-login.php'}); return false;" class="greedlink" href="#"><strong>Login</strong></a>
+			<?php else : ?>
+				<a class="greedlink" href="<?php echo $blog_url;?>/wp-login.php?action=logout"><strong>Logout</strong></a>
+				<?php if(current_user_can('manage_options')) : ?>
+					<a class="greedlink" href="<?php echo $blog_url;?>/wp-admin"><strong>Admin</strong></a>
+				<?php endif ?>
+			<?php endif ?>
 			<span class="greedlink" id="fontsize">&nbsp;&nbsp;&nbsp;</span>
 			<a title="Increase content text size" class="greedlink" id="fontinc" href="#">&nbsp;</a>
 			<a title="Decrease content text size" class="greedlink" id="fontdec" href="#">&nbsp;</a>

@@ -14,7 +14,7 @@
 			<?php wp_register(); ?>
 			<li><a href="/contact">Contact</a></li>
 			<li><?php wp_loginout(); ?></li>
-			<li id="gotop"><a href="#" onclick="MGJS.goTop();return false;"><?php _e('TOP', 'blocks2'); ?></a></li>
+			<li id="gotop"><a href="#" onclick="MGJS.goTop();return false;"><?php echo('TOP'); ?></a></li>
 		</ul><br />
 		<div class="fixed"></div>
 	</div>

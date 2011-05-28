@@ -51,6 +51,25 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
  * site specific jQuery code
  */
  
+ var pollsL10n = {
+	ajax_url: "http://blog.miranda.or.at/wp-content/plugins/wp-polls/wp-polls.php",
+	text_wait: "Your last request is still being processed. Please wait a while ...",
+	text_valid: "Please choose a valid poll answer.",
+	text_multiple: "Maximum number of choices allowed: ",
+	show_loading: "1",
+	show_fading: "1"
+};
+
+var poll_id=0,poll_answer_id="",is_being_voted=false;pollsL10n.show_loading=parseInt(pollsL10n.show_loading);pollsL10n.show_fading=parseInt(pollsL10n.show_fading);
+function poll_vote(a){if(is_being_voted)alert(pollsL10n.text_wait);else{set_is_being_voted(true);poll_id=a;poll_answer_id="";poll_multiple_ans_count=poll_multiple_ans=0;if(jQuery("#poll_multiple_ans_"+poll_id).length)poll_multiple_ans=parseInt(jQuery("#poll_multiple_ans_"+poll_id).val());jQuery("#polls_form_"+poll_id+" input:checkbox, #polls_form_"+poll_id+" input:radio").each(function(){if(jQuery(this).is(":checked"))if(poll_multiple_ans>0){poll_answer_id=jQuery(this).val()+","+poll_answer_id;poll_multiple_ans_count++}else poll_answer_id=
+parseInt(jQuery(this).val())});if(poll_multiple_ans>0)if(poll_multiple_ans_count>0&&poll_multiple_ans_count<=poll_multiple_ans){poll_answer_id=poll_answer_id.substring(0,poll_answer_id.length-1);poll_process()}else if(poll_multiple_ans_count==0){set_is_being_voted(false);alert(pollsL10n.text_valid)}else{set_is_being_voted(false);alert(pollsL10n.text_multiple+" "+poll_multiple_ans)}else if(poll_answer_id>0)poll_process();else{set_is_being_voted(false);alert(pollsL10n.text_valid)}}}
+function poll_process(){if(pollsL10n.show_fading)jQuery("#polls-"+poll_id).fadeTo("def",0,function(){pollsL10n.show_loading&&jQuery("#polls-"+poll_id+"-loading").show();jQuery.ajax({type:"POST",url:pollsL10n.ajax_url,data:"vote=true&poll_id="+poll_id+"&poll_"+poll_id+"="+poll_answer_id,cache:false,success:poll_process_success})});else{pollsL10n.show_loading&&jQuery("#polls-"+poll_id+"-loading").show();jQuery.ajax({type:"POST",url:pollsL10n.ajax_url,data:"vote=true&poll_id="+poll_id+"&poll_"+poll_id+
+"="+poll_answer_id,cache:false,success:poll_process_success})}}
+function poll_result(a){if(is_being_voted)alert(pollsL10n.text_wait);else{set_is_being_voted(true);poll_id=a;if(pollsL10n.show_fading)jQuery("#polls-"+poll_id).fadeTo("def",0,function(){pollsL10n.show_loading&&jQuery("#polls-"+poll_id+"-loading").show();jQuery.ajax({type:"GET",url:pollsL10n.ajax_url,data:"pollresult="+poll_id,cache:false,success:poll_process_success})});else{pollsL10n.show_loading&&jQuery("#polls-"+poll_id+"-loading").show();jQuery.ajax({type:"GET",url:pollsL10n.ajax_url,data:"pollresult="+
+poll_id,cache:false,success:poll_process_success})}}}
+function poll_booth(a){if(is_being_voted)alert(pollsL10n.text_wait);else{set_is_being_voted(true);poll_id=a;if(pollsL10n.show_fading)jQuery("#polls-"+poll_id).fadeTo("def",0,function(){pollsL10n.show_loading&&jQuery("#polls-"+poll_id+"-loading").show();jQuery.ajax({type:"GET",url:pollsL10n.ajax_url,data:"pollbooth="+poll_id,cache:false,success:poll_process_success})});else{pollsL10n.show_loading&&jQuery("#polls-"+poll_id+"-loading").show();jQuery.ajax({type:"GET",url:pollsL10n.ajax_url,data:"pollbooth="+
+poll_id,cache:false,success:poll_process_success})}}}function poll_process_success(a){jQuery("#polls-"+poll_id).replaceWith(a);pollsL10n.show_loading&&jQuery("#polls-"+poll_id+"-loading").hide();pollsL10n.show_fading?jQuery("#polls-"+poll_id).fadeTo("def",1,function(){set_is_being_voted(false)}):set_is_being_voted(false)}function set_is_being_voted(a){is_being_voted=a};
+ 
 jQuery(document).ready(function() {
 	
   SyntaxHighlighter.autoloader(
@@ -122,7 +141,6 @@ jQuery(document).ready(function() {
 
 	jQuery('.m_downarrow').click(function() {
 		var id = jQuery(this).attr('id');
-		var text = jQuery('.id').text();
 		jQuery('.' + id).children('.children').fadeIn();
 		jQuery('.' + id).children('.sub-menu').fadeIn();
 		menu_active = true;
@@ -166,7 +184,7 @@ jQuery(document).ready(function() {
 		opacity:0.5,
 		onCleanup:function(){ $('#highslide-privacy-dialog').hide(); },
 		href:'#highslide-privacy-dialog'});
-	
+
 	jQuery("#fontsize").text(textsize + textSizeUnit);
 	jQuery("#fontinc").bind("click", function() {
 		textsize = parseInt(textsize) + textSizeStep;

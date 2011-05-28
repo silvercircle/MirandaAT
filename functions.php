@@ -1,6 +1,5 @@
 <?php
 
-/** blocks2 options */
 //remove_filter('template_redirect', 'redirect_canonical');
 
 //add_filter('wp_loaded','flushRules');
@@ -88,7 +87,6 @@ function socialbar($post, $is_index = false)
 
 /** l10n */
 function theme_init(){
-	//load_theme_textdomain('blocks2', get_template_directory() . '/languages');
 	register_nav_menu('primary', __('Navigation'));
 }
 
@@ -166,9 +164,9 @@ function custom_comments($comment, $args, $depth) {
 			<div class="count">
 				<?php if($comment->comment_type != 'pingback' && $comment->comment_type != 'trackback') : ?>
 					<?php if (!get_option('thread_comments')) : ?>
-						<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-<?php echo $cid ?>', 'comment-<?php echo $cid ?>', 'comment');"><?php _e('Reply', 'blocks2'); ?></a> | 
+						<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-<?php echo $cid ?>', 'comment-<?php echo $cid ?>', 'comment');"><?php echo('Reply'); ?></a> | 
 					<?php else : ?>
-						<?php comment_reply_link(array('depth' => $depth, 'max_depth'=> $args['max_depth'], 'reply_text' => __('Reply', 'blocks2'), 'after' => ' | '));?>
+						<?php comment_reply_link(array('depth' => $depth, 'max_depth'=> $args['max_depth'], 'reply_text' => 'Reply', 'after' => ' | '));?>
 					<?php endif; ?>
 					<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-<?php echo $cid ?>', 'comment-<?php echo $cid ?>', 'commentbody-<?php echo $cid ?>', 'comment');"><?php echo 'Quote'; ?></a> | 
 				<?php endif; ?>
