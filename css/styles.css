@@ -1,0 +1,106 @@
+.share_widget a {
+	display: block;
+	padding-left: 18px;
+	padding-right: 2px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	float: left;
+	background-repeat: no-repeat;
+	white-space: nowrap;
+	line-height: 20px !important;
+	height: 20px !important;
+}
+
+.share_widget_e a {
+	width: 110px;
+	overflow: hidden;
+	color: #11d !important;
+	background-image: url(../icons/icons.gif) !important;
+	font-size:11px;
+}
+
+.share_widget_e a:hover {
+	color: #b11 !important;
+}
+
+.share_widget_e a.help {
+	width: auto;
+}
+
+.share_widget_spacer {
+	clear: left;
+}
+
+.share_widget_e {
+	position: absolute;
+	background: #fff;
+	color: #000;
+	border: 4px solid #ccc;
+	padding: 5px 5px;
+	margin-left: -1px;
+	width: 400px;
+}
+
+.share_widget a.email_entry {
+	background-image: url(../icons/email.gif) !important;
+	background-position: left center;
+}
+
+.share_widget a.buzzup {
+	background-image: url(../icons/buzzup.gif) !important;
+	background-position: left center !important;
+}
+
+.share_widget a.digg {
+	background-image: url(../icons/digg.gif) !important;
+	background-position: left center;
+}
+
+.share_widget a.mixx {
+	background-image: url(../icons/mixx.gif) !important;
+	background-position: left center;
+}
+
+.share_widget a.twitter {
+	background-image: url(../icons/twitter.gif) !important;
+	background-position: left center;
+}
+
+.share_widget a.delicious {
+	background-position: 0px -40px;
+}
+
+.share_widget a.facebook {
+	background-image: url(../icons/icons.gif) !important;
+	background-position: 0px -80px;
+}
+
+.share_widget a.google_buzz {
+	background-image: url(../icons/buzz.png) !important;
+	background-position: left center;
+}
+
+.share_widget a.google, .share_widget a.google_read {
+    background-image: url(../icons/icons.gif) !important;
+	background-position: 0px -120px;
+}
+
+.share_widget a.linkedin {
+	background-position: 0px -140px;
+}
+
+.share_widget a.live {
+	background-position: 0px -160px;
+}
+
+.share_widget a.myspace {
+	background-position: 0px -180px;
+}
+
+.share_widget a.slashdot {
+	background-position: 0px -260px;
+}
+
+.share_widget a.stumbleupon {
+	background-position: 0px -300px;
+}
