@@ -38,14 +38,15 @@ function likeThis(postId) {
 		jQuery.post(blogUrl + "/wp-content/plugins/i-like-this/like.php",
 			{ id: postId },
 			function(data){
+				jQuery('#iLikeThis-'+postId+' .ilk_counter').text(data + ' Like(s)');
 				jQuery('#iLikeThis-'+postId+' .ilk_button').attr('class', 'ilk_button liked');
-				jQuery('#iLikeThis-'+postId+' .ilk_button').html('<span class="liked">You liked this (' + data +')</span>');
+				jQuery('#iLikeThis-'+postId+' .ilk_button').html('<span class="liked">You liked this</span>');
 			});
 	}
 }
 
 var sans_family = '"Trebuchet MS",Verdana,helvetica,sans-serif';
-var serif_family = 'Constantia,Georgia,serif';
+var serif_family = 'Georgia,serif';
 
 function setInitialFontSize(newSize, newStyle) {
     if(jQuery.browser.msie) {

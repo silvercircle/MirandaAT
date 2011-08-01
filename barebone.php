@@ -9,7 +9,7 @@
  * March 2010, by silvercircle .at. gmail .dot. com | http://blog.miranda.or.at/
  * This template is based on the blocks2 theme
  */
-    global $sidebar_style, $display_sidebar;
+    global $sidebar_style, $display_sidebar, $post;
     if(isset($_GET['action']) && $_GET['action'] == 'print') {
 		include dirname(__FILE__) . '/print.php';
 		die;
@@ -28,23 +28,13 @@
     <div class="post" style="background:transparent;border:none;" id="post-<?php the_ID(); ?>">
     <div class="content">
     	<?php the_content();
-	    if (function_exists('TA_content_jump')) {
-		echo '<div style="clear:both;text-align:center;display:block;margin-top:10px;">'; TA_content_jump(1); echo '</div>';
-	    }
-	    $field = get_post_meta($post->ID, 'no_share_links', true);
-		if($field != '1') {
-		    template_share_link();
-		}
+		echo '<div class="content_jump">'; TA_content_jump(1); echo '</div>';
+   		socialbar($post, false);
+   		$views = get_post_meta($post->ID, 'views', true);
+   		$views++;
+	    update_post_meta($post->ID, 'views', $views);
 	    ?>
-
-	    <div class="fixed"></div>
-
-	    <?php if(get_post_meta($post->ID, 'ratings', true) === '1') {
-			the_ratings();
-	    } ?>
-	    </div>
-	    <div style="float:right;margin:3px;">
-	        <a title="Printable version" href="<?php echo get_permalink() . '?action=print'; ?>">Printable version</a>
+        <div style="float:right;font-size:11px;"><?php edit_post_link(__('Edit, ', 'blocks2'), '', ''); echo $views;?> Views, <a title="Printable version" href="<?php echo get_permalink() . '?action=print'; ?>">Printable version</a></div>
 	    </div>
     </div>
 
@@ -52,12 +42,8 @@
 	<div class="errorbox">
 	    <?php _e('Sorry, no posts matched your criteria.', 'blocks2'); ?>
 	</div>
-    <?php endif; ?>
-    <?php
-	if (function_exists('wp_list_comments')) {
-	    comments_template('', true);
-	} else {
-	    comments_template();
-	}
-	?>
-    <?php get_footer(); ?>
+    <?php 
+    	endif;
+   		comments_template('', true);
+   		get_footer(); 
+    ?>

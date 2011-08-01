@@ -4,8 +4,8 @@ $skip_header = 0;
 $skip_nav = 0;
 get_header(); ?>
 
-<div style="text-align:center;padding:5px;" id="post-<?php the_ID(); ?>">
-	<h1>
+<div style="border-bottom:3px solid #ccc;padding:5px;" id="post-<?php the_ID(); ?>">
+	<h1 style="float:left;">
 		<?php
 			if (is_search()) {
 				_e('Search Results', 'blocks2');
@@ -13,9 +13,9 @@ get_header(); ?>
 				_e('Archives', 'blocks2');
 			}
 		?>
-	</h2>
+	</h1>
 	<div class="meta">
-		<div class="info">
+		<div class="info" style="float:right;">
 <?php
 // If this is a search
 if (is_search()) {

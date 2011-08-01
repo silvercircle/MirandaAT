@@ -25,7 +25,7 @@
 			<?php
 				comments_popup_link('No comments', '1 comment','% comments');
 				edit_post_link('Edit', ' | ', '');
-				//echo '&nbsp;|&nbsp;', get_post_meta($post->ID, 'views', true), ' views ';
+				echo '&nbsp;|&nbsp;', get_post_meta($post->ID, 'views', true), ' views ';
 			?>
 		</div>
 		<div style="clear:right;"></div>
@@ -33,9 +33,6 @@
 
 	<div class="content">
 	    <?php 
-	    if($post->post_excerpt != '') {
-    		echo $post->post_excerpt;
-	    }
 	    the_content('Read more...');
 	    socialbar($post, true);
 	    ?>

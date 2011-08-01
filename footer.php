@@ -3,6 +3,11 @@
 	<!-- footer START -->
 	<footer>
 	<div id="footer">
+	<script type="text/javascript">
+   	// <![CDATA[
+		jQuery('div#footer').hide();
+	// ]]>
+	</script>
 		<div id="about">
 			<?php echo 'Powered by <a href="http://www.wordpress.org/">WordPress</a> | Design by Miranda@at'; ?>
 			 | <?php echo 'Valid <a href="http://validator.w3.org/check?uri=referer">HTML 5</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">CSS 3</a>'; ?>
@@ -26,19 +31,19 @@
 <div id="fb-root"></div>
 
 <?php
-	global $fbxml, $twitter_widgets, $template_url, $social_privacy;
+	global $fbxml, $twitter_widgets, $template_url, $social_privacy, $plusone;
 	wp_footer();
   	echo '<script type="text/javascript">
 	// <![CDATA[
-   	
+
     var anchor = document.getElementsByTagName(\'SCRIPT\')[0];
 	var t2 = document.createElement(\'SCRIPT\');
 	t2.type = "text/javascript";
 	t2.async = true;
-	t2.src = "',$template_url,'/js/support_footer.js?ver=1.1.0";
+	t2.src = "',$template_url,'/js/support-footer-min.js?ver=1.1.0";
 	anchor.parentNode.insertBefore(t2, anchor);
     ';
-	if($social_privacy != 1) {
+	if(1/*$social_privacy != 1*/) {
 		if($fbxml) {
 			echo '
 			window.fbAsyncInit = function() {
@@ -61,6 +66,16 @@
 			anchor.parentNode.insertBefore(t1, anchor);
 			';
 		}
+	}
+	if($plusone) {
+		echo '
+			var t3 = document.createElement(\'SCRIPT\');
+
+			t3.src = \'http://apis.google.com/js/plusone.js\'; 
+			t3.type = "text/javascript"; 
+			t3.async = true;
+			anchor.parentNode.insertBefore(t3, anchor);
+			';
 	}
     echo '
 	// ]]>

@@ -1,7 +1,7 @@
 <?php 
     global $sidebar_style, $display_sidebar, $skip_header, $skip_nav;
     if(isset($_GET['action']) && $_GET['action'] == 'print') {
-        include dirname(__FILE__) . '/print.php';
+		include dirname(__FILE__) . '/print.php';
         die;
     }
     if(get_post_meta($post->ID, 'no_sidebar', true) == 1) {
@@ -42,14 +42,15 @@
 		</div>
 		<div class="comments">
 			<a href="#respond"><?php _e('Leave a comment', 'blocks2'); ?></a>
-			<?php if(pings_open()) : ?>
-			 | <a href="<?php trackback_url(); ?>" rel="trackback"><?php _e('Trackback', 'blocks2'); ?></a>
-			<?php endif; ?>
+			<?php if(pings_open()) {
+			 	echo ' | <a href="',trackback_url(),'" rel="nofollow">Trackback</a>';
+			}
+			?>
 			<?php edit_post_link('Edit', ' | ', ''); 
 	               $views = get_post_meta($post->ID, 'views', true);
 	               $views++;
 	               update_post_meta($post->ID, 'views', $views);
-	               //echo '&nbsp;|&nbsp;',$views,'&nbsp;views '; 
+	               echo '&nbsp;|&nbsp;',$views,'&nbsp;views '; 
 	        ?>
 		</div>
 		<div style="clear:right;"></div>
@@ -57,11 +58,8 @@
 	<article>
 	<div class="content">
 	<?php
-		if($post->post_excerpt != '') {
-		    echo $post->post_excerpt;
-		}
 	the_content();
-	echo '<div style="text-align:center;clear:both;">'; TA_content_jump(1); echo '</div>';
+	echo '<div class="content_jump">'; TA_content_jump(1); echo '</div>';
 	socialbar($post, false);
 	?>
 	</div>
@@ -85,7 +83,7 @@
 	}
 ?>
 
-<div id="postnavi" style="margin-top:10px;">
+<div id="postnavi">
 	<?php previous_post_link('<span class="alignleft floatleft">&lt;&lt; %link</span>') ?>
 	<?php next_post_link('<span class="alignright floatright">%link &gt;&gt;</span>') ?>
 	<div class="fixed"></div>

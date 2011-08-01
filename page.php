@@ -38,7 +38,7 @@
     </div>
     <div class="content">
     	<?php the_content();
-		echo '<div style="clear:both;text-align:center;display:block;margin-top:10px;">'; TA_content_jump(1); echo '</div><br />';
+		echo '<div class="content_jump">'; TA_content_jump(1); echo '</div>';
 		socialbar($post, false);
 		?>
 		</div>

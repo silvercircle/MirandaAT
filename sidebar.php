@@ -1,7 +1,7 @@
 <?php $options = get_option('blocks2_options'); 
     global $sidebar_style, $display_sidebar;
 ?>
-	
+</div>
 </td>
 <td style="padding-right:5px;vertical-align:top;<?php echo $sidebar_style;?>">
 <!-- sidebar START -->
